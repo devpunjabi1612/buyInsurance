@@ -1,0 +1,143 @@
+<div class="first">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h4>Vehicle Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="formDiv">
+                            <!-- <form #regForm=ngForm (submit)="registerUser()"> -->
+                            <form #regForm=ngForm (ngSubmit)="submitted()">
+                                <!-- {{regForm.value|json}} -->
+                                <!-- label for takes the id -->
+                                <!-- {{reg|json}} -->
+                                <!-- {{regForm.valid}} -->
+
+                                <!-- <ng-select [items]="vehicleType"  placeholder="Select Vehicle Type"
+                                    [(ngModel)]="selectedType" (change)="onChange($event)">
+                                </ng-select><br>
+
+                                <ng-select [items]="cars" bindLabel="name" placeholder="Select Category"
+                                    [(ngModel)]="selected">
+                                </ng-select><br>
+
+                                <ng-select [items]="cars" bindLabel="name" placeholder="Select Category"
+                                    [(ngModel)]="selected">
+                                </ng-select><br> -->
+                                <!--Model Name -->
+                                <div *ngIf="regForm.submitted && en.invalid" style="color:red;">
+                                    <div *ngIf="en.errors?.required">Model Name is required</div>
+                                </div>
+                                <div>Model</div>
+                                <input type="text" name="mname"  #en="ngModel"
+                                    placeholder="Enter Model Name" id="uname" required
+                                    [ngClass]="{ 'is-invalid': regForm.submitted &&  en.invalid }"
+                                    [(ngModel)]="reg.Model"><br><br>
+
+
+                                <!-- Vehicle Type -->
+
+    
+                                <div *ngIf="regForm.submitted && em.invalid" style="color:red;">
+                                    <div *ngIf="em.errors?.required"> Please select Vehicle type</div>
+                                </div>
+                                <div>Select Vechicle Type </div>
+                                <select class="custom-select" class="product" name="product" [(ngModel)]="reg.VehicleType" #em="ngModel"
+                                    [ngClass]="{ 'is-invalid': regForm.submitted &&  em.invalid }" required>
+                                    <option value="" class="text-primary font-weight-bolder">
+                                        --- Select Vehicle Type ---
+                                    </option>
+                                    <option *ngFor="let vehicle of vehicleDetail" [value]="vehicle.name">
+                                        {{vehicle.name}}
+                                    </option>
+                                </select><br><br>
+
+                                <!-- ManuFacturer -->
+                                <div *ngIf="regForm.submitted &&  mf.invalid" style="color:red;">
+                                    <div *ngIf="mf.errors?.required">Please Select ManuFacturer</div>
+                                </div>
+                                <div>Select manufacturer Type</div>
+                                <select class="custom-select" name="model" class="product" [(ngModel)]="reg.Manufacturer" #mf="ngModel"
+                                    [ngClass]="{ 'is-invalid': regForm.submitted && mf.invalid }" required >
+                                    <option value="" class="text-primary font-weight-bolder" class="select-items">
+                                        --- ManuFacturer ---
+                                    </option>
+                                    <ng-container *ngFor="let vehicle of vehicleDetail">
+                                        <ng-container *ngFor="let j of vehicle.category">
+                                            <option [value]="j" *ngIf="reg.VehicleType===vehicle.name"  class="select-items">
+                                                {{j}}
+                                            </option>
+                                        </ng-container>
+                                    </ng-container>
+                                </select><br><br>
+
+                                <div *ngIf="regForm.submitted && en.invalid" style="color:red;">
+                                    <div *ngIf="en.errors?.required">DrivingLicense required</div>
+                                </div>
+                                <div>DrivingLicense</div>
+                                <input type="text" name="drive"  #en="ngModel"
+                                    placeholder="Enter DrivingLicense" id="uname" required
+                                    [ngClass]="{ 'is-invalid': regForm.submitted &&  en.invalid }"
+                                    [(ngModel)]="reg.DrivingLicense"><br><br>
+
+                                
+
+                                <!--Purchased Date-->
+                                <div *ngIf="regForm.submitted && dt.invalid" style="color:red;">
+                                    <div *ngIf="dt.errors?.required">Date is required</div>
+                                </div>
+                                <div>Select Purchase Date</div>
+                                <input type="date" name="date" id="date" #dt="ngModel" placeholder="Select Purchase Date"
+                                    required [ngClass]="{ 'is-invalid': regForm.submitted &&  dt.invalid }"
+                                    [(ngModel)]="reg.PurchasedDate"><br><br>
+
+                                 <!--Registration  Number -->
+                                <div *ngIf="regForm.submitted && rg.invalid" style="color:red;">
+                                    <div *ngIf="rg.errors?.required">Registration Number is required</div>
+                                    <div *ngIf="rg.errors?.pattern">Registration Number is not valid</div>
+                                </div>
+                                <div>Enter Registration </div>
+                                <input type="text" name="regNo" id="regNo" #rg="ngModel"
+                                    placeholder="Enter Registration Number" required
+                                    [ngClass]="{ 'is-invalid': regForm.submitted && rg.invalid }"
+                                    pattern="^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$"
+                                    [(ngModel)]="reg.RegistrationNumber"><br><br>
+                                    
+                                 <!--Engine Number -->
+                                <div *ngIf="regForm.submitted && en.invalid" style="color:red;">
+                                    <div *ngIf="en.errors?.required">Engine Number is required</div>
+                                    <div *ngIf="en.errors?.minlength">Lenght should be = 10</div>
+                                </div>
+                                <div>Enter Engine Number</div>
+                                <input type="text" name="ename" minlength="10" #en="ngModel"
+                                    placeholder="Enter Engine Number" id="uname" required
+                                    [ngClass]="{ 'is-invalid': regForm.submitted &&  en.invalid }"
+                                    [(ngModel)]="reg.EngineNumber"><br><br>
+
+
+                                <div *ngIf="regForm.submitted && cn.invalid" style="color:red;">
+                                    <div *ngIf="cn.errors?.required">Chasis Number is required</div>
+                                    <div *ngIf="cn.errors?.minlength">Lenght should be = 10</div>
+                                </div>
+                                <div>EnterChasis Number</div>
+                                <input type="text" name="cname" minlength="10" #cn="ngModel"
+                                    placeholder="Enter Chasis Number" id="uname" required
+                                    [ngClass]="{ 'is-invalid': regForm.submitted &&  cn.invalid }"
+                                    [(ngModel)]="reg.ChassisNumber"><br><br>
+
+
+
+                                <button type="submit" class="btn btn-primary" >Register</button>
+                            </form>
+                        
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
